@@ -1,0 +1,35 @@
+- generic [ref=f5e3]:
+  - heading "Contact Manager" [level=1] [ref=f5e4]
+  - generic [ref=f5e5]:
+    - textbox "Search by name..." [ref=f5e6]
+    - 'button "Sort by name: none" [ref=f5e7] [cursor=pointer]'
+    - button "Add Contact" [ref=f5e8] [cursor=pointer]
+  - table [ref=f5e9]:
+    - rowgroup [ref=f5e10]:
+      - row [ref=f5e11]:
+        - columnheader "Name" [ref=f5e12]
+        - columnheader "Email" [ref=f5e13]
+        - columnheader "Phone" [ref=f5e14]
+        - columnheader "Actions" [ref=f5e15]
+    - rowgroup [ref=f5e16]:
+      - row [ref=f5e17]:
+        - cell "Ada Lovelace" [ref=f5e18]
+        - cell "ada@example.com" [ref=f5e19]
+        - cell "555-0100" [ref=f5e20]
+        - cell [ref=f5e21]:
+          - button "Edit" [ref=f5e22] [cursor=pointer]
+          - button "Delete" [ref=f5e23] [cursor=pointer]
+      - row [ref=f5e24]:
+        - cell "Grace Hopper" [ref=f5e25]
+        - cell "grace@example.com" [ref=f5e26]
+        - cell "555-0101" [ref=f5e27]
+        - cell [ref=f5e28]:
+          - button "Edit" [ref=f5e29] [cursor=pointer]
+          - button "Delete" [ref=f5e30] [cursor=pointer]
+      - row [ref=f5e31]:
+        - cell "Alan Turing" [ref=f5e32]
+        - cell "alan@example.com" [ref=f5e33]
+        - cell "555-0102" [ref=f5e34]
+        - cell [ref=f5e35]:
+          - button "Edit" [ref=f5e36] [cursor=pointer]
+          - button "Delete" [ref=f5e37] [cursor=pointer]

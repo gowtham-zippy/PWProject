@@ -1,0 +1,14 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+
+# App
+app/client/dist/
+app/client/node_modules/
+app/server/node_modules/
+
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

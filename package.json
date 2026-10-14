@@ -1,0 +1,20 @@
+{
+  "name": "pwproject",
+  "version": "1.0.0",
+  "description": "Contact Manager app with Playwright Test Agents",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -k -n SERVER,CLIENT -c green,blue \"npm run dev --prefix app/server\" \"npm run dev --prefix app/client\"",
+    "install:all": "npm install --prefix app/server && npm install --prefix app/client",
+    "test": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "concurrently": "^9.0.0"
+  }
+}
