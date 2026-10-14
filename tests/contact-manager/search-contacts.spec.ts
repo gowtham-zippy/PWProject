@@ -1,54 +1,27 @@
 // spec: specs/contact-manager.md
 // seed: tests/seed.spec.ts
 
-import { test, expect } from '@playwright/test';
-import type { APIRequestContext } from '@playwright/test';
-
-interface Contact {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-}
-
-async function resetContacts(request: APIRequestContext) {
-  await request.post('/api/contacts/__reset');
-}
-
-async function seedContacts(request: APIRequestContext): Promise<Contact[]> {
-  const response = await request.post('/api/contacts/__seed');
-  return response.json();
-}
+import { test, expect } from '../fixtures';
 
 test.describe('Contact Manager', () => {
-  let contacts: Contact[];
+  test('Search for a contact by partial name', async ({ contactManagerPage, seededContacts }) => {
+    // 1. Navigate to the app, then type 'ada' into search-input
+    const [ada, grace, alan] = seededContacts;
 
-  test.beforeEach(async ({ request }) => {
-    await resetContacts(request);
-    contacts = await seedContacts(request);
-  });
+    await contactManagerPage.goto();
+    await contactManagerPage.searchBar.search('ada');
 
-  test('Search for a contact by partial name', async ({ page }) => {
-    // 1. Reset and seed the contacts store via the API, navigate to the app, then type 'ada' into search-input
-    await page.goto('http://localhost:5173');
-
-    const [ada, grace, alan] = contacts;
-    const searchInput = page.getByTestId('search-input');
-    const table = page.getByTestId('contact-table');
-
-    await searchInput.fill('ada');
-
-    await expect(table.getByTestId(`contact-row-${ada.id}`)).toBeVisible();
-    await expect(table.getByTestId(`contact-row-${grace.id}`)).not.toBeVisible();
-    await expect(table.getByTestId(`contact-row-${alan.id}`)).not.toBeVisible();
-    await expect(table.locator('tbody tr')).toHaveCount(1);
+    await expect(contactManagerPage.table.row(ada.id)).toBeVisible();
+    await expect(contactManagerPage.table.row(grace.id)).not.toBeVisible();
+    await expect(contactManagerPage.table.row(alan.id)).not.toBeVisible();
+    await contactManagerPage.table.expectRowCount(1);
 
     // 2. Clear the search-input completely
-    await searchInput.fill('');
+    await contactManagerPage.searchBar.clear();
 
-    await expect(table.getByTestId(`contact-row-${ada.id}`)).toBeVisible();
-    await expect(table.getByTestId(`contact-row-${grace.id}`)).toBeVisible();
-    await expect(table.getByTestId(`contact-row-${alan.id}`)).toBeVisible();
-    await expect(table.locator('tbody tr')).toHaveCount(3);
+    await expect(contactManagerPage.table.row(ada.id)).toBeVisible();
+    await expect(contactManagerPage.table.row(grace.id)).toBeVisible();
+    await expect(contactManagerPage.table.row(alan.id)).toBeVisible();
+    await contactManagerPage.table.expectRowCount(3);
   });
 });
